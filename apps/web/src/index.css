@@ -1,0 +1,710 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family:
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    sans-serif;
+  line-height: 1.5;
+  color: #1a1a1a;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.app-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid #e0e0e0;
+  background: #fff;
+}
+
+.nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav a {
+  color: #0a66c2;
+  text-decoration: none;
+}
+
+.nav a:hover {
+  text-decoration: underline;
+}
+
+.version-pill {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #555;
+}
+
+.page {
+  padding: 1.5rem;
+  max-width: 48rem;
+}
+
+.lede {
+  color: #444;
+  margin-top: 0;
+}
+
+.debug-panel {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+.debug-panel h2 {
+  margin-top: 0;
+  font-size: 1rem;
+}
+
+.muted {
+  color: #666;
+  font-size: 0.9375rem;
+}
+
+.event-id-list {
+  margin: 0.5rem 0 0;
+  padding-left: 1.25rem;
+  font-size: 0.875rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.actions button {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  font: inherit;
+}
+
+.actions button:hover:not(:disabled) {
+  background: #f0f0f0;
+}
+
+.actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* —— Week view (Phase 4 layout, Phase 6 horizontal scroll) —— */
+
+.week-page {
+  max-width: none;
+  width: 100%;
+  padding: 1rem 1.25rem 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.week-page-title {
+  margin: 0 0 0.25rem;
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.week-page-lede {
+  margin-bottom: 1rem;
+}
+
+.week-view {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  gap: 0.75rem;
+}
+
+/* —— Day view (Phase 8) —— */
+
+.day-view {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  gap: 0.75rem;
+}
+
+.day-view-biscroll {
+  --week-gutter-width: 48px;
+  --week-day-col: 10rem;
+
+  max-width: calc(var(--week-gutter-width) + var(--week-day-col));
+  width: min(100%, calc(var(--week-gutter-width) + var(--week-day-col)));
+  margin-inline: auto;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+  flex: 1 1 0;
+  min-height: 0;
+  border: 1px solid #d8d8d8;
+  border-radius: 10px;
+  background: #fff;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.day-view-biscroll-inner {
+  display: flex;
+  flex-direction: column;
+  min-height: min-content;
+  width: max(100%, calc(var(--week-gutter-width) + var(--week-day-col)));
+  min-width: max(100%, calc(var(--week-gutter-width) + var(--week-day-col)));
+}
+
+.day-view-invalid {
+  margin: 0;
+  color: #a40000;
+}
+
+/* —— Month view (Phase 8) —— */
+
+.month-page {
+  max-width: none;
+  width: 100%;
+  padding: 1rem 1.25rem 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.month-page-title {
+  margin: 0 0 0.25rem;
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.month-page-lede {
+  margin-bottom: 0.75rem;
+}
+
+.month-page-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.month-page-toolbar button {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  font: inherit;
+}
+
+.month-page-toolbar button:hover {
+  background: #f0f0f0;
+}
+
+.month-view-title {
+  margin: 0 0 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 1px;
+  background: #ddd;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  flex: 1;
+  min-height: 0;
+}
+
+.month-grid-dow {
+  background: #fafafa;
+  padding: 0.35rem 0.2rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-align: center;
+  color: #555;
+}
+
+.month-cell {
+  min-height: 4.5rem;
+  background: #fff;
+  padding: 0.25rem;
+  font-size: 0.72rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.1rem;
+}
+
+.month-cell--in-month {
+  background: #fff;
+}
+
+.month-cell:not(.month-cell--in-month) {
+  background: #f8f8f8;
+  color: #999;
+}
+
+.month-cell-day {
+  display: inline-block;
+  align-self: flex-start;
+  font-weight: 600;
+  color: #0a66c2;
+  text-decoration: none;
+  line-height: 1.2;
+}
+
+.month-cell-day:hover {
+  text-decoration: underline;
+}
+
+.month-cell-events {
+  list-style: none;
+  margin: 0.1rem 0 0;
+  padding: 0;
+  flex: 1;
+  min-height: 0;
+}
+
+.month-cell-event-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #333;
+}
+
+.month-cell-more {
+  color: #888;
+  font-style: italic;
+}
+
+.month-view-hint {
+  margin: 0.75rem 0 0;
+  font-size: 0.8rem;
+}
+
+.week-toolbar {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.5rem;
+}
+
+.week-toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.week-toolbar-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.week-toolbar button {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  font: inherit;
+}
+
+.week-toolbar button:hover {
+  background: #f0f0f0;
+}
+
+.week-toolbar button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.week-toolbar-zoom {
+  color: #999;
+  user-select: none;
+  padding: 0 0.15rem;
+}
+
+.week-toolbar-zoom-label {
+  font-size: 0.8rem;
+  color: #555;
+  min-width: 2.75rem;
+  text-align: center;
+  user-select: none;
+}
+
+.week-toolbar-range {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #555;
+}
+
+.week-toolbar-hint {
+  margin: 0;
+  font-size: 0.75rem;
+  color: #666;
+}
+
+.week-biscroll {
+  --week-gutter-width: 48px;
+  /* Fixed day width; strip spans multiple ISO weeks (see --week-strip-weeks). */
+  --week-day-col: 10rem;
+  --week-strip-weeks: 3;
+  --week-grid-min-width: calc(
+    var(--week-gutter-width) + 7 * var(--week-strip-weeks) * var(--week-day-col)
+  );
+  /* Viewport shows one ISO week + gutter; inner strip stays --week-grid-min-width. */
+  --week-viewport-width: calc(var(--week-gutter-width) + 7 * var(--week-day-col));
+
+  max-width: var(--week-viewport-width);
+  width: min(100%, var(--week-viewport-width));
+  margin-inline: auto;
+
+  overflow-x: auto;
+  overflow-y: auto;
+  /* flex-basis 0 so this pane can shrink below content height and scroll vertically */
+  flex: 1 1 0;
+  min-height: 0;
+  border: 1px solid #d8d8d8;
+  border-radius: 10px;
+  background: #fff;
+  scroll-snap-type: x mandatory;
+  /* Align week snaps with the sticky time gutter (Monday starts after gutter). */
+  scroll-padding-left: var(--week-gutter-width);
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.week-biscroll-inner {
+  display: flex;
+  flex-direction: column;
+  min-height: min-content;
+  width: max(100%, var(--week-grid-min-width));
+  min-width: max(100%, var(--week-grid-min-width));
+}
+
+.week-head-row {
+  display: flex;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  border-bottom: 1px solid #e6e6e6;
+  background: #fafafa;
+  width: 100%;
+}
+
+.week-corner {
+  width: var(--week-gutter-width);
+  flex-shrink: 0;
+  position: sticky;
+  left: 0;
+  z-index: 7;
+  background: #fafafa;
+  border-right: 1px solid #eee;
+}
+
+.week-head-days {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: calc(7 * var(--week-strip-weeks) * var(--week-day-col));
+}
+
+.week-head-cell {
+  flex: 0 0 var(--week-day-col);
+  width: var(--week-day-col);
+  box-sizing: border-box;
+  padding: 0.5rem 0.35rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #333;
+  border-left: 1px solid #eee;
+}
+
+/* Snap only on ISO week starts (Mon columns): indices 0, 7, 14 in the strip. */
+.week-snap-week-start {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.week-body-row {
+  display: flex;
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.time-gutter {
+  width: var(--week-gutter-width);
+  flex-shrink: 0;
+  position: sticky;
+  left: 0;
+  z-index: 4;
+  border-right: 1px solid #e6e6e6;
+  background: #fcfcfc;
+}
+
+.time-gutter-hour {
+  position: absolute;
+  right: 4px;
+  transform: translateY(-50%);
+  font-size: 0.72rem;
+  color: #777;
+  white-space: nowrap;
+}
+
+.week-day-columns {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: calc(7 * var(--week-strip-weeks) * var(--week-day-col));
+}
+
+.day-column {
+  flex: 0 0 var(--week-day-col);
+  width: var(--week-day-col);
+  box-sizing: border-box;
+  position: relative;
+  border-left: 1px solid #f0f0f0;
+}
+
+.day-hour-lines {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.day-grid-interaction {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  cursor: crosshair;
+  /* Allow the week-biscroll container to receive horizontal + vertical pan/scroll (touch-action:none blocks that). */
+  touch-action: pan-x pan-y;
+}
+
+.day-create-preview {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: rgba(52, 199, 89, 0.22);
+  border: 1px dashed rgba(34, 139, 34, 0.65);
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.day-hour-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px solid #f2f2f2;
+  height: 0;
+}
+
+.day-events-layer {
+  position: relative;
+  height: 100%;
+  z-index: 2;
+  /* Let empty column space hit `.day-grid-interaction` underneath; event blocks opt back in. */
+  pointer-events: none;
+}
+
+.week-event-block {
+  position: absolute;
+  box-sizing: border-box;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: visible;
+  background: rgba(10, 132, 255, 0.14);
+  border: 1px solid rgba(10, 132, 255, 0.42);
+  border-radius: 4px;
+  font-size: 0.72rem;
+  line-height: 1.2;
+}
+
+.week-event-body {
+  flex: 1;
+  min-height: 0;
+  padding: 2px 4px;
+  overflow: hidden;
+  cursor: grab;
+  touch-action: pan-x pan-y;
+}
+
+.week-event-body:active {
+  cursor: grabbing;
+}
+
+.week-event-resize {
+  flex-shrink: 0;
+  height: 6px;
+  margin: 0;
+  background: rgba(10, 132, 255, 0.35);
+  cursor: ns-resize;
+  touch-action: pan-x pan-y;
+}
+
+.week-event-resize:hover {
+  background: rgba(10, 132, 255, 0.55);
+}
+
+.week-event-resize--top {
+  border-radius: 3px 3px 0 0;
+}
+
+.week-event-resize--bottom {
+  border-radius: 0 0 3px 3px;
+}
+
+.week-event-title {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* —— Event editor modal —— */
+
+.event-editor-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.event-editor-dialog {
+  width: min(26rem, 100%);
+  max-height: calc(100vh - 2rem);
+  overflow: auto;
+  padding: 1.25rem;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+.event-editor-heading {
+  margin: 0 0 0.35rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.event-editor-zone-hint {
+  margin: 0 0 1rem;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.event-editor-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.event-editor-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.event-editor-field span {
+  color: #444;
+}
+
+.event-editor-field input {
+  padding: 0.4rem 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font: inherit;
+}
+
+.event-editor-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.event-editor-row .event-editor-field {
+  flex: 1;
+  min-width: 10rem;
+}
+
+.event-editor-error {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #b00020;
+}
+
+.event-editor-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.event-editor-cancel,
+.event-editor-save {
+  padding: 0.45rem 0.85rem;
+  border-radius: 6px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.event-editor-cancel {
+  border: 1px solid #bbb;
+  background: #fff;
+}
+
+.event-editor-save {
+  border: 1px solid #0a66c2;
+  background: #0a66c2;
+  color: #fff;
+}
+
+.event-editor-save:hover {
+  filter: brightness(1.05);
+}
